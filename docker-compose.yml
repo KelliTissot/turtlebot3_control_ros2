@@ -1,0 +1,21 @@
+
+services:
+  turtlebot3:
+    build: .
+    privileged: true
+    environment:
+      - DISPLAY=$DISPLAY
+      - "RCUTILS_CONSOLE_OUTPUT_FORMAT=[{severity}]: {message}"
+      - TURTLEBOT3_MODEL=burger
+      - SVGA_VGPU10=0
+    volumes:
+      - .volumes/ros_data:/root/.turtlebot3
+    command: tail -f /dev/null
+    network_mode: host
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: all
+    #           capabilities: [gpu]
